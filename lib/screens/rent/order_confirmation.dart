@@ -131,48 +131,51 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                             ),
                           ),
                           Expanded(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.carData.name.toUpperCase(),
-                                style: TextStyle(fontSize: 18, color: kPrimaryColor, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5),
-                                width: 25,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                  color: Provider.of<carsProvider>(context).selectedColorGetter,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.black12, width: 2),
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.carData.name.toUpperCase(),
+                                  style: TextStyle(fontSize: 18, color: kPrimaryColor, fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '${weeks} Weeks',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey,
+                                SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '${int.parse(widget.carData.price.replaceAll(',', '')) * weeks} EGP',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey,
+                                Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  width: 25,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: Provider.of<carsProvider>(context).selectedColorGetter,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: Colors.black12, width: 2),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  '${weeks} Weeks',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  '${int.parse(widget.carData.price.replaceAll(',', '')) * weeks} EGP',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
                           )),
                         ],
                       ),
