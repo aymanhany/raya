@@ -19,8 +19,6 @@ class PaymentsProvider extends ChangeNotifier {
 
   var numberOfWeeks;
 
-  get getNumberOfWeeks => numberOfWeeks;
-
   get getrentPrice => rentPrice;
   get onSiteGetter => onSite;
   get transGetter => trans;
@@ -32,4 +30,19 @@ class PaymentsProvider extends ChangeNotifier {
   get paymentMethodGetter => paymentMethod;
 
   get paymentTokenGetter => paymentToken;
+  List<DateTime> daysForWeeks = [];
+
+  List<DateTime> getDaysInBeteweens(DateTime start, DateTime end) {
+    for (int i = 0; i <= end.difference(start).inDays; i++) {
+      daysForWeeks.add(DateTime(
+          start.year,
+          start.month,
+          // In Dart you can set more than. 30 days, DateTime will do the trick
+          start.day + i));
+    }
+    numberOfWeeks = daysForWeeks.length ~/ 7;
+    return daysForWeeks;
+  }
+
+  get getNumberOfWeeks => numberOfWeeks;
 }

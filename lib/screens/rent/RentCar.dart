@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:raya/providers/PaymentsProvider.dart';
 import 'package:raya/screens/layout/appBar.dart';
 import 'package:raya/screens/layout/basebottombar.dart';
@@ -27,6 +29,7 @@ extension StringCasingExtension on String {
 
 class _RentCarState extends State<RentCar> {
   List<DateTime> days = [];
+
   var testdata = DateTime.saturday % 7;
   var colorss = {
     'black': Colors.black,
@@ -43,22 +46,18 @@ class _RentCarState extends State<RentCar> {
     'yellow': Color(0xFFf96614),
   };
   late String _startDate, _endDate;
-  late int nubmerOfWeeks = 0;
+
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
-    setState(() {
-      _startDate = args.value.startDate.toString();
-      _endDate = args.value.endDate.toString();
-    });
     int firstDayOfWeek = args.value.startDate.weekday % 7;
     int endDayOfWeek = (firstDayOfWeek + 6) % 7;
-    endDayOfWeek = endDayOfWeek < 0 ? 7 + endDayOfWeek : endDayOfWeek;
+    endDayOfWeek = endDayOfWeek < 0 ? 7 : endDayOfWeek;
     PickerDateRange ranges = args.value;
     DateTime date1 = ranges.startDate!;
     DateTime date2 = (ranges.endDate ?? ranges.startDate!.add(Duration(days: 6)));
     if (date1.isAfter(date2)) {
       var date = date1;
       date1 = date2;
-      date2 = date;
+      date2 = date.add(Duration(days: 6));
     }
     int day1 = date1.weekday % 7;
     int day2 = date2.weekday % 7;
@@ -82,6 +81,9 @@ class _RentCarState extends State<RentCar> {
     if (!isSameDate(dat1, ranges.startDate) || !isSameDate(dat2, ranges.endDate)) {
       _controller.selectedRange = PickerDateRange(dat1, dat2);
     }
+
+    _startDate = args.value.startDate.toString();
+    _endDate = args.value.endDate.toString();
   }
 
   late DateRangePickerController _controller;
@@ -100,10 +102,22 @@ class _RentCarState extends State<RentCar> {
           start.day + i));
     }
 
-    Provider.of<PaymentsProvider>(context, listen: false).numberOfWeeks = days.length ~/ 7;
-
     return days;
   }
+
+  // List<DateTime> getDaysInBeteweenprov(DateTime start, DateTime end) {
+  //   for (int i = 0; i <= end.difference(start).inDays; i++) {
+  //     days.add(DateTime(
+  //         start.year,
+  //         start.month,
+  //         // In Dart you can set more than. 30 days, DateTime will do the trick
+  //         start.day + i));
+  //   }
+
+  //   Provider.of<PaymentsProvider>(context, listen: false).numberOfWeeks = days.length ~/ 7;
+
+  //   return days;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -1041,6 +1055,7 @@ class _RentCarState extends State<RentCar> {
                     Container(
                       padding: EdgeInsets.all(kDefaultPadding),
                       child: SfDateRangePicker(
+                        enablePastDates: false,
                         view: DateRangePickerView.month,
                         onSelectionChanged: selectionChanged,
                         controller: _controller,
@@ -1074,7 +1089,7 @@ class _RentCarState extends State<RentCar> {
                         if (Provider.of<userProvider>(context, listen: false).isLoggedInGetter == true) {
                           Provider.of<PaymentsProvider>(context, listen: false).start_date = _startDate;
                           Provider.of<PaymentsProvider>(context, listen: false).end_date = _endDate;
-                          getDaysInBeteween(DateTime.parse(_startDate), DateTime.parse(_endDate));
+                          Provider.of<PaymentsProvider>(context, listen: false).getDaysInBeteweens(DateTime.parse(_startDate), DateTime.parse(_endDate));
                           Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -300,7 +300,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
 
   Future submitOrder(data, paymentMethod, user, color) async {
     var colorString = color.toString();
-    final weeks = Provider.of<PaymentsProvider>(context, listen: false).numberOfWeeks;
+    final weeks = Provider.of<PaymentsProvider>(context, listen: false).getNumberOfWeeks;
     final response = await http.post(
       Uri.parse('https://Httpraya-backend.com/api/rentorders'),
       body: {
