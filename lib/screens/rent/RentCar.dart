@@ -82,8 +82,8 @@ class _RentCarState extends State<RentCar> {
       _controller.selectedRange = PickerDateRange(dat1, dat2);
     }
 
-    _startDate = args.value.startDate.toString();
-    _endDate = args.value.endDate.toString();
+    _startDate = ranges.startDate.toString();
+    _endDate = (ranges.endDate.toString() ?? ranges.startDate!.add(Duration(days: 6)).toString());
   }
 
   late DateRangePickerController _controller;
