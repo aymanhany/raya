@@ -8,6 +8,7 @@ import 'package:raya/screens/layout/colors.dart';
 import 'package:raya/providers/carsProvider.dart';
 import 'package:raya/screens/buy/Car.dart';
 import 'package:raya/screens/layout/appBar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Cars extends StatelessWidget {
   var catName;
@@ -19,8 +20,7 @@ class Cars extends StatelessWidget {
     return Scaffold(
       appBar: BaseAppBar(),
       body: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: kDefaultPadding, vertical: kDefaultPadding),
+        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding),
         // margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -40,7 +40,7 @@ class Cars extends StatelessWidget {
                   itemCount: snapshot.data.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.65,
+                      childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.05),
                       mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -59,7 +59,7 @@ class Cars extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Container(
-                          //   child: Text(snapshot.data[index].name),
+                          //   child: AutoSizeText(snapshot.data[index].name),
                           // ),
                           Container(
                             clipBehavior: Clip.none,
@@ -85,8 +85,7 @@ class Cars extends StatelessWidget {
                                 Positioned(
                                   top: -60,
                                   child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.44,
+                                    width: MediaQuery.of(context).size.width * 0.44,
                                     child: Image.network(
                                       'https://raya.akwadweb.com/storage/carts/${snapshot.data[index].id}/${snapshot.data[index].pics.first}',
                                       fit: BoxFit.fitWidth,
@@ -96,12 +95,11 @@ class Cars extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text(
+                                      AutoSizeText(
                                         snapshot.data[index].price + ' EGP',
                                         style: TextStyle(
                                           fontSize: 22,
@@ -112,7 +110,7 @@ class Cars extends StatelessWidget {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Text(
+                                      AutoSizeText(
                                         snapshot.data[index].name,
                                         style: TextStyle(
                                           fontSize: 18,

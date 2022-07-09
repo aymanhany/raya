@@ -16,8 +16,7 @@ class Scooter extends StatelessWidget {
     return Scaffold(
       appBar: BaseAppBar(),
       body: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: kDefaultPadding, vertical: kDefaultPadding),
+        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding),
         // margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -37,7 +36,7 @@ class Scooter extends StatelessWidget {
                   itemCount: snapshot.data.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.6,
+                      childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.05),
                       mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -82,8 +81,7 @@ class Scooter extends StatelessWidget {
                                 Positioned(
                                   top: -60,
                                   child: SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.44,
+                                    width: MediaQuery.of(context).size.width * 0.44,
                                     child: Image.network(
                                         'https://raya.akwadweb.com/storage/carts/${snapshot.data[index].id}/${snapshot.data[index].pics.first}',
                                         height: 140),
@@ -92,8 +90,7 @@ class Scooter extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [

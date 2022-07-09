@@ -37,6 +37,8 @@ dependencies:
   webview_flutter: ^3.0.4
   syncfusion_flutter_datepicker: 
   url_launcher: ^6.1.2
+  auto_size_text: ^3.0.0
+
 
 dev_dependencies:
   flutter_launcher_icons_maker: "^0.10.1"

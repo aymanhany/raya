@@ -12,6 +12,7 @@ import 'package:raya/providers/carsProvider.dart';
 import 'package:raya/providers/userProvider.dart';
 import 'package:raya/screens/rent/buy_steps.dart';
 import 'package:raya/screens/user/login.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class RentCar extends StatefulWidget {
   final carsList carData;
@@ -255,9 +256,9 @@ class _RentCarState extends State<RentCar> {
                           children: [
                             Expanded(
                               flex: 1,
-                              child: Text(
+                              child: AutoSizeText(
                                 'Colors',
-                                style: TextStyle(color: kPrimaryColor, fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'Seg'),
+                                style: TextStyle(color: kPrimaryColor, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'Seg'),
                               ),
                             ),
                             SizedBox(width: 10),

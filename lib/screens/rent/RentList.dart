@@ -41,7 +41,10 @@ class _RentListState extends State<RentList> {
                 return GridView.builder(
                   clipBehavior: Clip.none,
                   itemCount: snapshot.data.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5, mainAxisSpacing: 10),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.05),
+                      mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
