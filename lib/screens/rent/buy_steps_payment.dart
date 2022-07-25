@@ -15,8 +15,9 @@ import '../../providers/userProvider.dart';
 
 class BuyStepsPayment extends StatefulWidget {
   final carsList carData;
+  final int weeks;
 
-  BuyStepsPayment({Key? key, required this.carData}) : super(key: key);
+  BuyStepsPayment({Key? key, required this.carData, required this.weeks}) : super(key: key);
 
   @override
   State<BuyStepsPayment> createState() => _BuyStepsPaymentState();
@@ -27,7 +28,6 @@ class _BuyStepsPaymentState extends State<BuyStepsPayment> {
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<userProvider>(context, listen: false).userDataGetter;
-    final weeks = Provider.of<PaymentsProvider>(context, listen: false).getNumberOfWeeks;
     final carsList carData = widget.carData;
     return Scaffold(
       appBar: BaseAppBar(),
@@ -114,7 +114,7 @@ class _BuyStepsPaymentState extends State<BuyStepsPayment> {
                       onPressed: () {
                         Provider.of<PaymentsProvider>(context, listen: false).paymentMethod = 'Visa & Master Card';
                         var iframe = 380572;
-                        getVisaApi(carData.price, user, iframe, weeks);
+                        getVisaApi(carData.price, user, iframe, widget.weeks);
                       },
                       child: Text(
                         'Visa & Master Card'.toUpperCase(),
@@ -138,7 +138,7 @@ class _BuyStepsPaymentState extends State<BuyStepsPayment> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OrderConfirmation(carData: widget.carData, user: user),
+                            builder: (context) => OrderConfirmation(carData: widget.carData, user: user, weeks: widget.weeks),
                           ),
                         );
                       },

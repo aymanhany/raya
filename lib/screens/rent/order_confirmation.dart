@@ -17,10 +17,10 @@ import 'package:http/http.dart' as http;
 
 class OrderConfirmation extends StatefulWidget {
   final carsList carData;
-
+  final int weeks;
   final User user;
 
-  OrderConfirmation({Key? key, required this.carData, required this.user}) : super(key: key);
+  OrderConfirmation({Key? key, required this.carData, required this.user, required this.weeks}) : super(key: key);
 
   @override
   State<OrderConfirmation> createState() => _OrderConfirmationState();
@@ -32,7 +32,6 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
   Widget build(BuildContext context) {
     final paymentMethod = Provider.of<PaymentsProvider>(context, listen: false).paymentMethodGetter;
     final colorKey = Provider.of<carsProvider>(context, listen: false).selectedColorKey;
-    final weeks = Provider.of<PaymentsProvider>(context, listen: false).getNumberOfWeeks;
     return Scaffold(
       appBar: BaseAppBar(),
       body: Container(
@@ -158,7 +157,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                                   height: 10,
                                 ),
                                 Text(
-                                  '${weeks} Weeks',
+                                  '${widget.weeks} Weeks',
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.grey,
@@ -168,7 +167,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
                                   height: 10,
                                 ),
                                 Text(
-                                  '${int.parse(widget.carData.price.replaceAll(',', '')) * weeks} EGP',
+                                  '${int.parse(widget.carData.price.replaceAll(',', '')) * widget.weeks} EGP',
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.grey,
@@ -303,7 +302,6 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
 
   Future submitOrder(data, paymentMethod, user, color) async {
     var colorString = color.toString();
-    final weeks = Provider.of<PaymentsProvider>(context, listen: false).getNumberOfWeeks;
     final response = await http.post(
       Uri.parse('https://Httpraya-backend.com/api/rentorders'),
       body: {
@@ -319,7 +317,7 @@ class _OrderConfirmationState extends State<OrderConfirmation> {
         "street": Provider.of<LocationProvider>(context, listen: false).street,
         "landmarks": Provider.of<LocationProvider>(context, listen: false).description,
         "color": "${colorString}",
-        "price": "${int.parse(widget.carData.price.replaceAll(',', '')) * weeks}",
+        "price": "${int.parse(widget.carData.price.replaceAll(',', '')) * widget.weeks}",
         "mobile": "${user.mobile}",
       },
       headers: {"Accept": "application/json", "authorization": "Bearer " + user.token},

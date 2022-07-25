@@ -73,7 +73,7 @@ class _SupportState extends State<Support> {
                         child: TextFormField(
                           controller: _messageController,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null) {
                               return 'Please enter a message';
                             }
                             return null;

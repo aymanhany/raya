@@ -53,7 +53,7 @@ class _RentCarState extends State<RentCar> {
     endDayOfWeek = endDayOfWeek < 0 ? 7 : endDayOfWeek;
     PickerDateRange ranges = args.value;
     DateTime date1 = ranges.startDate!;
-    DateTime date2 = (ranges.endDate ?? ranges.startDate!.add(Duration(days: 6)));
+    DateTime date2 = (args.value.endDate ?? args.value.startDate!.add(Duration(days: 6)));
     if (date1.isAfter(date2)) {
       var date = date1;
       date1 = date2;
@@ -81,6 +81,9 @@ class _RentCarState extends State<RentCar> {
     if (!isSameDate(dat1, ranges.startDate) || !isSameDate(dat2, ranges.endDate)) {
       _controller.selectedRange = PickerDateRange(dat1, dat2);
     }
+
+    _startDate = ranges.startDate!.toString();
+    _endDate = (ranges.endDate ?? ranges.startDate!.add(Duration(days: 6))).toString();
   }
 
   late DateRangePickerController _controller;
@@ -100,6 +103,24 @@ class _RentCarState extends State<RentCar> {
     }
 
     return days;
+  }
+
+  List<DateTime> daysForWeeks = [];
+
+  var numberOfWeeks;
+
+  List<DateTime> getDaysInBeteweens(DateTime start, DateTime end) {
+    daysForWeeks = [];
+    for (int i = 0; i <= end.difference(start).inDays; i++) {
+      daysForWeeks.add(DateTime(
+          start.year,
+          start.month,
+          // In Dart you can set more than. 30 days, DateTime will do the trick
+          start.day + i));
+    }
+
+    numberOfWeeks = daysForWeeks.length ~/ 7;
+    return daysForWeeks;
   }
 
   // List<DateTime> getDaysInBeteweenprov(DateTime start, DateTime end) {
@@ -1084,15 +1105,11 @@ class _RentCarState extends State<RentCar> {
                       ),
                       onPressed: () {
                         if (Provider.of<userProvider>(context, listen: false).isLoggedInGetter == true) {
-                          Provider.of<PaymentsProvider>(context, listen: false).start_date = _startDate;
-                          Provider.of<PaymentsProvider>(context, listen: false).end_date = _endDate;
-                          Provider.of<PaymentsProvider>(context, listen: false).getDaysInBeteweens(DateTime.parse(_startDate), DateTime.parse(_endDate));
+                          getDaysInBeteweens(DateTime.parse(_startDate), DateTime.parse(_endDate));
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BuySteps(
-                                carData: widget.carData,
-                              ),
+                              builder: (context) => BuySteps(carData: widget.carData, weeks: numberOfWeeks),
                             ),
                           );
                         } else {

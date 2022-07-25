@@ -10,8 +10,9 @@ import 'package:raya/screens/rent/buy_steps_payment.dart';
 
 class BuySteps extends StatefulWidget {
   final carsList carData;
+  final int weeks;
 
-  BuySteps({Key? key, required this.carData}) : super(key: key);
+  BuySteps({Key? key, required this.carData, required this.weeks}) : super(key: key);
 
   @override
   State<BuySteps> createState() => _BuyStepsState();
@@ -349,9 +350,7 @@ class _BuyStepsState extends State<BuySteps> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BuyStepsPayment(
-                              carData: widget.carData,
-                            ),
+                            builder: (context) => BuyStepsPayment(carData: widget.carData, weeks: widget.weeks),
                           ),
                         );
                       } else {
