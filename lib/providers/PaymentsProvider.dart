@@ -40,6 +40,7 @@ class PaymentsProvider extends ChangeNotifier {
           // In Dart you can set more than. 30 days, DateTime will do the trick
           start.day + i));
     }
+    numberOfWeeks = 0;
     numberOfWeeks = daysForWeeks.length ~/ 7;
     return daysForWeeks;
   }

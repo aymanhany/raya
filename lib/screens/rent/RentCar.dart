@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:raya/providers/PaymentsProvider.dart';
 import 'package:raya/screens/layout/appBar.dart';
 import 'package:raya/screens/layout/basebottombar.dart';
@@ -46,6 +44,7 @@ class _RentCarState extends State<RentCar> {
     'champange': Color(0XFFb39e86),
     'yellow': Color(0xFFf96614),
   };
+
   late String _startDate, _endDate;
 
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
@@ -82,9 +81,6 @@ class _RentCarState extends State<RentCar> {
     if (!isSameDate(dat1, ranges.startDate) || !isSameDate(dat2, ranges.endDate)) {
       _controller.selectedRange = PickerDateRange(dat1, dat2);
     }
-
-    _startDate = ranges.startDate.toString();
-    _endDate = (ranges.endDate.toString() ?? ranges.startDate!.add(Duration(days: 6)).toString());
   }
 
   late DateRangePickerController _controller;
