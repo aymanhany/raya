@@ -1106,6 +1106,8 @@ class _RentCarState extends State<RentCar> {
                       onPressed: () {
                         if (Provider.of<userProvider>(context, listen: false).isLoggedInGetter == true) {
                           getDaysInBeteweens(DateTime.parse(_startDate), DateTime.parse(_endDate));
+                          Provider.of<PaymentsProvider>(context, listen: false).start_date = _startDate;
+                          Provider.of<PaymentsProvider>(context, listen: false).end_date = _endDate;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
