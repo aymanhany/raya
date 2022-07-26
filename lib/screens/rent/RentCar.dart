@@ -1077,7 +1077,7 @@ class _RentCarState extends State<RentCar> {
                         view: DateRangePickerView.month,
                         onSelectionChanged: selectionChanged,
                         controller: _controller,
-                        selectionMode: DateRangePickerSelectionMode.range,
+                        selectionMode: DateRangePickerSelectionMode.extendableRange,
                         selectableDayPredicate: (DateTime value) {
                           if (days.contains(value)) {
                             return false;
